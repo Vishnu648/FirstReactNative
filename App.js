@@ -12,7 +12,9 @@ export default function App() {
 
   function CreateTask() {
     saveText.length ?
-      setGoal(prev => [...prev, saveText]) : "";
+      setGoal(prev => [...prev, 
+        {text: saveText,key: Math.random().toString()}
+      ]) : "";
     // setSaveText('')
   }
 
@@ -32,16 +34,15 @@ export default function App() {
 
       { goal.length> 0 ?
       <View style={styles.goalsContainer}>
-      <ScrollView >
-        {
-          goal.map((e, i) => (
-            <View style={styles.listItem} key={i}>
-              <Text style={{ color: 'white' }}>{e}</Text>
+      <FlatList data={goal} renderItem={(itemData,index) => {
+        return(
+          <View style={styles.listItem} >
+              <Text style={{ color: 'white' }}>{itemData.item.text}</Text>
+              {console.log('--',itemData)}
             </View>
-          )
-          )
-        }
-      </ScrollView>
+        )
+      }
+      }/>
       </View>
       : "" }
 
