@@ -13,7 +13,7 @@ export default function App() {
   function CreateTask() {
     saveText.length ?
       setGoal(prev => [...prev, 
-        {text: saveText,key: Math.random().toString()}
+        {text: saveText,id: Math.random().toString()}
       ]) : "";
     // setSaveText('')
   }
@@ -42,7 +42,12 @@ export default function App() {
             </View>
         )
       }
-      }/>
+      }
+      keyExtractor={(item,index) => {
+        return item.id
+      }
+      }
+      />
       </View>
       : "" }
 
