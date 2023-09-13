@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 const GoalInput = ({onAddGoal}) => {
 
-  const [saveText, setSaveText] = useState('text');
+  const [saveText, setSaveText] = useState('');
 
   function SaveChangeText(e) {
     setSaveText(e)
@@ -11,7 +11,7 @@ const GoalInput = ({onAddGoal}) => {
 
   function CreateTask(){
     onAddGoal(saveText);
-    // setSaveText('')
+    setSaveText('')
   }
 
     return (
@@ -20,6 +20,7 @@ const GoalInput = ({onAddGoal}) => {
                 style={styles.inputField}
                 value={saveText}
                 placeholder="new task"
+                placeholderTextColor="gray"
                 onChangeText={SaveChangeText} />
             <View style={{ flex: 1, padding: 5 }}>
                 <Button title='Add' color="#536976" 
@@ -45,7 +46,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: '#292e49',
         color: 'white',
-        fontSize: 25
+        fontSize: 25,
+        display:'flex',
+        alignItems:'center'
     },
 })
 

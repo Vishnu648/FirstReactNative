@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, FlatList, } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList,StatusBar } from 'react-native';
 import { useState } from 'react';
 import GoalList from './components/GoalList';
 import GoalInput from './components/GoalInput';
@@ -22,6 +22,8 @@ export default function App() {
   }
 
   return (
+    <>
+    <StatusBar />
     <View style={styles.container}>
       <GoalInput onAddGoal={CreateTask} />
 
@@ -53,12 +55,13 @@ export default function App() {
 
 
     </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#292e49',
+    // backgroundColor: '',
     paddingTop: 40,
     padding: 10,
     paddingBottom: 20,
