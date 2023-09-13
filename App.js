@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, } from 'react-native';
 import { useState } from 'react';
 import GoalList from './components/GoalList';
 import GoalInput from './components/GoalInput';
@@ -15,10 +15,18 @@ export default function App() {
     // setSaveText('')
   }
 
+  function DeleteGoal(id) {
+    setGoal(prev=>{
+      return prev.filter((goals)=>goals.id !== id)
+    });
+  }
+
   return (
     <View style={styles.container}>
-      <GoalInput onAddGoal={CreateTask}/>
+      <GoalInput onAddGoal={CreateTask} />
+
       <Button title='reset' color="#536976" onPress={() => setGoal([])} />
+
       <Text style={{ fontSize: 20, margin: 30, marginBottom: 20 }}>Tasks</Text>
 
 
@@ -27,7 +35,7 @@ export default function App() {
       {goal.length > 0 ?
         <View style={styles.goalsContainer}>
           <FlatList data={goal} renderItem={(itemData, index) => {
-            return <GoalList itemData={itemData}/>
+            return <GoalList itemData={itemData} onDeleteGoal={DeleteGoal} />
           }
           }
             keyExtractor={(item, index) => {
