@@ -16,8 +16,8 @@ export default function App() {
   }
 
   function DeleteGoal(id) {
-    setGoal(prev=>{
-      return prev.filter((goals)=>goals.id !== id)
+    setGoal(prev => {
+      return prev.filter((goals) => goals.id !== id)
     });
   }
 
@@ -27,10 +27,15 @@ export default function App() {
 
       <Button title='reset' color="#536976" onPress={() => setGoal([])} />
 
-      <Text style={{ fontSize: 20, margin: 30, marginBottom: 20 }}>Tasks</Text>
+      <View style={styles.infoContainer}>
+        {goal.length > 0 ? (
+          <Text style={{ fontSize: 20, margin: 30, marginBottom: 20 }}>Tasks</Text>
+        ) :
+          <Text style={{ fontSize: 20, margin: 30, marginBottom: 20 }}>No Task</Text>
+        }
+        <Text style={styles.noTask}>Long press to Delete</Text>
+      </View>
 
-
-      {goal.length == 0 ? <Text style={styles.noTask}>No Tasks to do..</Text> : ""}
 
       {goal.length > 0 ?
         <View style={styles.goalsContainer}>
@@ -61,11 +66,18 @@ const styles = StyleSheet.create({
   },
   noTask: {
     textAlign: 'center',
-    color: 'darkgray'
+    color: 'darkgray',
+    marginRight:20
   },
   goalsContainer: {
     height: '80%',
     paddingBottom: 20
 
+  },
+  infoContainer:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
   }
 });

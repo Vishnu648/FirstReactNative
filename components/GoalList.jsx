@@ -3,7 +3,7 @@ import React from 'react'
 
 const GoalList = ({itemData,onDeleteGoal}) => {
     return (
-        <Pressable onLongPress={()=>onDeleteGoal(itemData.item.id)}>
+        <Pressable android_ripple={{color:'darkgray'}} onLongPress={()=>onDeleteGoal(itemData.item.id)}>
         <View style={styles.listItem} >
             <Text style={{ color: 'white', fontSize: 28 }}>{itemData.item.text}</Text>
         </View>
