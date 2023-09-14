@@ -11,7 +11,7 @@ const GoalInput = ({onAddGoal}) => {
 
   function CreateTask(){
     onAddGoal(saveText);
-    setSaveText('')
+    setSaveText('');
   }
 
     return (

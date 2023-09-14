@@ -1,86 +1,64 @@
-import { StyleSheet, Text, View, Button, FlatList,StatusBar } from 'react-native';
-import { useState } from 'react';
-import GoalList from './components/GoalList';
-import GoalInput from './components/GoalInput';
+import { View, Text, Button, StatusBar, StyleSheet, Pressable, Image } from 'react-native'
+import { useState } from 'react'
+import Todo from './modelPage/Todo'
 
-export default function App() {
+const App = () => {
 
-  const [goal, setGoal] = useState([])
+  const [modalIsVisible, setModalIsVisible] = useState(false)
 
-  function CreateTask(saveText) {
-    saveText.length ?
-      setGoal(prev => [...prev,
-      { text: saveText, id: Math.random().toString() }
-      ]) : "";
-    // setSaveText('')
-  }
 
-  function DeleteGoal(id) {
-    setGoal(prev => {
-      return prev.filter((goals) => goals.id !== id)
-    });
+  function showAddGoal() {
+    setModalIsVisible(true)
   }
 
   return (
     <>
-    <StatusBar />
-    <View style={styles.container}>
-      <GoalInput onAddGoal={CreateTask} />
+      <StatusBar />
+      <View style={styles.appContainer}>
 
-      <Button title='reset' color="#536976" onPress={() => setGoal([])} />
-
-      <View style={styles.infoContainer}>
-        {goal.length > 0 ? (
-          <Text style={{ fontSize: 20, margin: 30, marginBottom: 20 }}>Tasks</Text>
-        ) :
-          <Text style={{ fontSize: 20, margin: 30, marginBottom: 20 }}>No Task</Text>
-        }
-        <Text style={styles.noTask}>Long press to Delete</Text>
-      </View>
-
-
-      {goal.length > 0 ?
-        <View style={styles.goalsContainer}>
-          <FlatList data={goal} renderItem={(itemData, index) => {
-            return <GoalList itemData={itemData} onDeleteGoal={DeleteGoal} />
-          }
-          }
-            keyExtractor={(item, index) => {
-              return item.id
-            }
-            }
+        <View Pressable={showAddGoal} style={styles.customBtn}>
+          <Image Pressable={showAddGoal} style={styles.mainIcon} source={require('./assets/mainIcon.webp')} />
+        </View>
+        <View style={styles.addBtn}>
+          <Button
+            title="Add new Task"
+            color={'black'}
+            onPress={showAddGoal}
           />
         </View>
-        : ""}
 
+        {modalIsVisible && <Todo visible={modalIsVisible} setModalIsVisible={setModalIsVisible} />}
 
-    </View>
+      </View>
+
     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: '',
-    paddingTop: 40,
-    padding: 10,
-    paddingBottom: 20,
-    marginBottom: 20
+  appContainer: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  noTask: {
-    textAlign: 'center',
-    color: 'darkgray',
-    marginRight:20
+  addBtn: {
+    height: 60,
+    width: '100%',
+    alignItems: 'center',
+    padding: 10
   },
-  goalsContainer: {
-    height: '80%',
-    paddingBottom: 20
-
+  customBtn: {
+    height: 300,
+    width: '60%',
+    // backgroundColor: 'lightgray',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  infoContainer:{
-    display:'flex',
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+  mainIcon: {
+    height: 180,
+    width: 180,
+    objectFit: 'contain'
   }
-});
+})
+
+export default App
